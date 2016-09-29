@@ -1,0 +1,8 @@
+//Import Normalize CSS
+@import '../../node_modules/normalize.css/normalize';
+
+//Import Core CSS
+@import './components/core/styles/core';
+
+//Import Views CSS
+@import './components/**/styles/*.view.scss';

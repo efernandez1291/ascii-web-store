@@ -1,0 +1,46 @@
+<div class="catalog-loader-top" ng-if="!catalog.productsLoaded">
+  <h4>Grabbing Some Goodies...</h4>
+  <div class="loader">
+    <span>༼ つ ◕_◕ ༽つ</span>
+  </div>
+</div>
+<div class="product-container" ng-if="catalog.productsLoaded">
+
+  <div class="product" ng-repeat-start="product in catalog.products | orderBy:catalog.sortOrder track by $index">
+    <p class="date-added">Added {{product.date}}</p>
+
+    <div class="product-content">
+      <p class="size">Font Size: <b>{{product.size}}px</b></p>
+      <p class="preview" ng-style="{'font-size':product.size+'px'}">{{product.face}}</p>
+    </div>
+
+    <button type="button" class="action">Add To Cart For - <b>{{product.price / 100 | currency:"$":2}}</b></button>
+  </div>
+
+  <img
+    ng-src="/ad/?r={{catalog.adID[$index]}}"
+    ng-if="!(($index + 1) % catalog.addPlacementNumber)"
+    ng-init="catalog.setRandomAdID($index)"
+    ng-repeat-end
+    class="ad-image"/>
+</div>
+
+<div class="catalog-loader-bottom" ng-if="catalog.userScrolledToBottom && !catalog.preloadedResults && !catalog.endOfCatalog">
+  <h4>Grabbing Some Goodies...</h4>
+  <div class="loader">
+    <span>༼ つ ◕_◕ ༽つ</span>
+  </div>
+</div>
+
+<div class="end-of-catalog-message" ng-if="catalog.endOfCatalog">
+  <h4>Crud, no more to grab (ﾉಥ益ಥ）ﾉ</h4>
+</div>
+
+<div class="sorting-bar">
+  <label for="sorting-order">Sort products by</label>
+  <select class="sorting-order" id="sorting-order" ng-model="catalog.sortOrder">
+    <option value="id">Product ID</option>
+    <option value="price">Price</option>
+    <option value="size">Size</option>
+  </select>
+</div>
